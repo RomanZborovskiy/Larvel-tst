@@ -19,13 +19,13 @@ class ProductController extends Controller
         {
             $query = Product::query();
 
-             if ($request->filled('price_min')) {
-        $query->where('price', '>=', $request->price_min);
-    }
+            if ($request->filled('price_min')) {
+                $query->where('price', '>=', $request->price_min);
+            }
 
-    if ($request->filled('price_max')) {
-        $query->where('price', '<=', $request->price_max);
-    }
+            if ($request->filled('price_max')) {
+                $query->where('price', '<=', $request->price_max);
+            }
 
             $products = $query->paginate(15);
 
