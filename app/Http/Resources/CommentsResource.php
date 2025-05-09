@@ -2,11 +2,11 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Request;
+use Auth;use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Auth;
 
-class OrderResource extends JsonResource
+
+class CommentsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,11 @@ class OrderResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'=>$this->id,
+            'id'=> $this->id,
             'user_id'=>Auth::id(),
-            'total_price'=>$this->total_price,
-            'order_items'=>OrderItemsResource::collection($this->whenLoaded('orderItems')),
+            'content'=>$this->content,
+            'product_id'=>$this->product->id,
+            
         ];
     }
 }

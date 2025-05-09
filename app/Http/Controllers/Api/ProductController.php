@@ -15,9 +15,21 @@ class ProductController extends Controller
         /**
          * Display a listing of the resource.
          */
-        public function index()
+        public function index(Request $request)
         {
-            return ProductResource::collection(Product::paginate(4));
+            $query = Product::query();
+
+             if ($request->filled('price_min')) {
+        $query->where('price', '>=', $request->price_min);
+    }
+
+    if ($request->filled('price_max')) {
+        $query->where('price', '<=', $request->price_max);
+    }
+
+            $products = $query->paginate(15);
+
+            return ProductResource::collection($products);
         }
     
         /**

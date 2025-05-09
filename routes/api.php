@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProductController;
@@ -20,12 +21,18 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->middleware('throttle:api')->group(function(){
     Route::post('register', [UserController::class, 'register']);
     Route::post('login', [UserController::class, 'login']);
+    Route::apiResource('products', ProductController::class);
+    Route::get('/products/comments/{comment}', [CommentController::class, 'show']);
 });
 
 
-Route::prefix('v1')->middleware('throttle:api')->group(function(){
-    Route::apiResource('products', ProductController::class);
+Route::prefix('v1')->middleware('throttle:api', 'auth:sanctum' )->group(function(){
     Route::apiResource('orders', OrderController::class);
+    Route::get('/products/{product}/comments', [CommentController::class, 'index']);
+    Route::post('/products/{product}/comments', [CommentController::class, 'store']);
+    //Route::get('/products/comments/{comment}', [CommentController::class, 'show']);
+    Route::delete('/products/comments/{comment}', [CommentController::class, 'destroy']);
     
     Route::get('logout', [UserController::class, 'logout']);
 });
+

@@ -50,31 +50,16 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOrderRequest $request, Order $order)
-    {
-        $order->update($request->all());
-            if($request->has('order_items')) {
-                foreach ($request->input('order_items') as $item) {
-                    if (isset($item['id'])) {
-                        $orderItem = OrderItem::where('id', $item['id'])
-                            ->where('order_id', $order->id)
-                            ->firstOrFail();
-                        $orderItem->update([
-                            'product_id' => $item['product_id'],
-                            'quantity' => $item['quantity'],
-                            'price' => $item['price'],
-                        ]);
-                    } 
-                }
-            }
-            return new OrderResource($order->load('orderItems'));
-    }
+    // public function update(UpdateOrderRequest $request, Order $order)
+    // {
+        
+    // }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Order $order)
-    {
-        //
-    }
+    // public function destroy(Order $order)
+    // {
+    //     //
+    // }
 }
