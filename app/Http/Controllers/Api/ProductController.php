@@ -19,6 +19,10 @@ class ProductController extends Controller
         {
             $query = Product::query();
 
+            if ($request->filled('category')) {
+                $query->where('category_id', '=', $request->category);
+            }
+
             if ($request->filled('price_min')) {
                 $query->where('price', '>=', $request->price_min);
             }

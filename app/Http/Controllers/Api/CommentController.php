@@ -36,22 +36,6 @@ class CommentController extends Controller
         return new CommentsResource($comment);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Comment $comment)
-    {
-        
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateCommentRequest $request, Comment $comment)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
